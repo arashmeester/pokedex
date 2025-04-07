@@ -38,12 +38,13 @@
       <div
         v-for="pokemon in filteredPokemon"
         :key="pokemon?.id"
-        class="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow cursor-pointer"
-        @click="showDetails(pokemon?.id)"
+        class="bg-white pt-8 pb-4 px-4 rounded-lg shadow hover:shadow-md transition-shadow cursor-pointer relative"
       >
-        <div class="flex justify-end">
+        <button
+          @click="toggleFavIds(pokemon.id)"
+          class="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-xl font-bold"
+        >
           <font-awesome-icon
-            @click="toggleFavIds(pokemon.id)"
             :icon="
               includes(isFavourite, pokemon.id)
                 ? ['fas', 'heart']
@@ -56,11 +57,13 @@
                 : 'hover:text-red-400'
             "
           />
+        </button>
+        <div @click="showDetails(pokemon?.id)">
+          <h2 class="font-bold text-lg capitalize">{{ pokemon?.name }}</h2>
+          <p class="text-gray-500">
+            {{ pokemon?.id.toString().padStart(4, "0") }}
+          </p>
         </div>
-        <h2 class="font-bold text-lg capitalize">{{ pokemon?.name }}</h2>
-        <p class="text-gray-500">
-          {{ pokemon?.id.toString().padStart(4, "0") }}
-        </p>
       </div>
     </div>
 
